@@ -7,15 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6508235E2AAAF83800BE4DA9 /* ComicDetailListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508235D2AAAF83800BE4DA9 /* ComicDetailListItem.swift */; };
+		6529B2512AADDF870064AD43 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529B2502AADDF870064AD43 /* PageView.swift */; };
 		655116E52AA714DF0083725D /* YomiYomiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655116E42AA714DF0083725D /* YomiYomiApp.swift */; };
 		655116E72AA714DF0083725D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655116E62AA714DF0083725D /* ContentView.swift */; };
 		655116E92AA714E00083725D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 655116E82AA714E00083725D /* Assets.xcassets */; };
 		655116EC2AA714E00083725D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 655116EB2AA714E00083725D /* Preview Assets.xcassets */; };
 		655116EE2AA714E00083725D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655116ED2AA714E00083725D /* Persistence.swift */; };
 		655116F12AA714E00083725D /* YomiYomi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 655116EF2AA714E00083725D /* YomiYomi.xcdatamodeld */; };
+		655117182AA756BC0083725D /* Comic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117142AA756BC0083725D /* Comic+CoreDataClass.swift */; };
+		6551171A2AA756BC0083725D /* Chapter+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117162AA756BC0083725D /* Chapter+CoreDataClass.swift */; };
+		6551171D2AA76DB00083725D /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6551171C2AA76DB00083725D /* Helper.swift */; };
+		655117202AA76E3E0083725D /* ZipArchive in Frameworks */ = {isa = PBXBuildFile; productRef = 6551171F2AA76E3E0083725D /* ZipArchive */; };
+		655117222AA86DEB0083725D /* ImageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117212AA86DEB0083725D /* ImageModifier.swift */; };
+		655117242AA86E0F0083725D /* ComicDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117232AA86E0F0083725D /* ComicDetailView.swift */; };
+		655117272AA86ECC0083725D /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117262AA86ECC0083725D /* TabView.swift */; };
+		655117292AA86EF40083725D /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117282AA86EF40083725D /* LibraryView.swift */; };
+		6551172B2AA86F050083725D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6551172A2AA86F050083725D /* Constants.swift */; };
+		6551172D2AA872AD0083725D /* ComicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6551172C2AA872AD0083725D /* ComicView.swift */; };
+		655117302AA872C60083725D /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 6551172F2AA872C60083725D /* SwiftUIPager */; };
+		655117322AA872E20083725D /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117312AA872E20083725D /* Card.swift */; };
+		655117342AA872FC0083725D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117332AA872FC0083725D /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6508235D2AAAF83800BE4DA9 /* ComicDetailListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailListItem.swift; sourceTree = "<group>"; };
+		6529B2502AADDF870064AD43 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		655116E12AA714DF0083725D /* YomiYomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YomiYomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		655116E42AA714DF0083725D /* YomiYomiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YomiYomiApp.swift; sourceTree = "<group>"; };
 		655116E62AA714DF0083725D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -23,6 +40,18 @@
 		655116EB2AA714E00083725D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		655116ED2AA714E00083725D /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		655116F02AA714E00083725D /* YomiYomi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YomiYomi.xcdatamodel; sourceTree = "<group>"; };
+		655117142AA756BC0083725D /* Comic+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Comic+CoreDataClass.swift"; path = "../../Comic+CoreDataClass.swift"; sourceTree = "<group>"; };
+		655117162AA756BC0083725D /* Chapter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Chapter+CoreDataClass.swift"; path = "../../Chapter+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6551171C2AA76DB00083725D /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		655117212AA86DEB0083725D /* ImageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModifier.swift; sourceTree = "<group>"; };
+		655117232AA86E0F0083725D /* ComicDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailView.swift; sourceTree = "<group>"; };
+		655117262AA86ECC0083725D /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		655117282AA86EF40083725D /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		6551172A2AA86F050083725D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6551172C2AA872AD0083725D /* ComicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicView.swift; sourceTree = "<group>"; };
+		655117312AA872E20083725D /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		655117332AA872FC0083725D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		655117352AA8772F0083725D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				655117302AA872C60083725D /* SwiftUIPager in Frameworks */,
+				655117202AA76E3E0083725D /* ZipArchive in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +70,7 @@
 		655116D82AA714DF0083725D = {
 			isa = PBXGroup;
 			children = (
+				6529B2502AADDF870064AD43 /* PageView.swift */,
 				655116E32AA714DF0083725D /* YomiYomi */,
 				655116E22AA714DF0083725D /* Products */,
 			);
@@ -55,8 +87,17 @@
 		655116E32AA714DF0083725D /* YomiYomi */ = {
 			isa = PBXGroup;
 			children = (
+				655117352AA8772F0083725D /* Info.plist */,
+				655117072AA750CF0083725D /* Model */,
 				655116E42AA714DF0083725D /* YomiYomiApp.swift */,
 				655116E62AA714DF0083725D /* ContentView.swift */,
+				655117262AA86ECC0083725D /* TabView.swift */,
+				655117282AA86EF40083725D /* LibraryView.swift */,
+				655117312AA872E20083725D /* Card.swift */,
+				655117232AA86E0F0083725D /* ComicDetailView.swift */,
+				6508235D2AAAF83800BE4DA9 /* ComicDetailListItem.swift */,
+				6551172C2AA872AD0083725D /* ComicView.swift */,
+				655117252AA86E400083725D /* Helpers */,
 				655116E82AA714E00083725D /* Assets.xcassets */,
 				655116ED2AA714E00083725D /* Persistence.swift */,
 				655116EF2AA714E00083725D /* YomiYomi.xcdatamodeld */,
@@ -71,6 +112,26 @@
 				655116EB2AA714E00083725D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		655117072AA750CF0083725D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				655117142AA756BC0083725D /* Comic+CoreDataClass.swift */,
+				655117162AA756BC0083725D /* Chapter+CoreDataClass.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		655117252AA86E400083725D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6551171C2AA76DB00083725D /* Helper.swift */,
+				655117212AA86DEB0083725D /* ImageModifier.swift */,
+				6551172A2AA86F050083725D /* Constants.swift */,
+				655117332AA872FC0083725D /* Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,6 +150,10 @@
 			dependencies = (
 			);
 			name = YomiYomi;
+			packageProductDependencies = (
+				6551171F2AA76E3E0083725D /* ZipArchive */,
+				6551172F2AA872C60083725D /* SwiftUIPager */,
+			);
 			productName = YomiYomi;
 			productReference = 655116E12AA714DF0083725D /* YomiYomi.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +182,10 @@
 				Base,
 			);
 			mainGroup = 655116D82AA714DF0083725D;
+			packageReferences = (
+				6551171E2AA76E3E0083725D /* XCRemoteSwiftPackageReference "ZipArchive" */,
+				6551172E2AA872C60083725D /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
+			);
 			productRefGroup = 655116E22AA714DF0083725D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -143,10 +212,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				655117272AA86ECC0083725D /* TabView.swift in Sources */,
+				655117342AA872FC0083725D /* Extensions.swift in Sources */,
+				655117222AA86DEB0083725D /* ImageModifier.swift in Sources */,
+				6551171A2AA756BC0083725D /* Chapter+CoreDataClass.swift in Sources */,
+				6551171D2AA76DB00083725D /* Helper.swift in Sources */,
 				655116EE2AA714E00083725D /* Persistence.swift in Sources */,
+				655117182AA756BC0083725D /* Comic+CoreDataClass.swift in Sources */,
 				655116F12AA714E00083725D /* YomiYomi.xcdatamodeld in Sources */,
+				6551172D2AA872AD0083725D /* ComicView.swift in Sources */,
+				655117292AA86EF40083725D /* LibraryView.swift in Sources */,
+				655117322AA872E20083725D /* Card.swift in Sources */,
 				655116E72AA714DF0083725D /* ContentView.swift in Sources */,
 				655116E52AA714DF0083725D /* YomiYomiApp.swift in Sources */,
+				6508235E2AAAF83800BE4DA9 /* ComicDetailListItem.swift in Sources */,
+				655117242AA86E0F0083725D /* ComicDetailView.swift in Sources */,
+				6529B2512AADDF870064AD43 /* PageView.swift in Sources */,
+				6551172B2AA86F050083725D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +365,8 @@
 				DEVELOPMENT_TEAM = D7UAPTYYWC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YomiYomi/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -312,6 +396,8 @@
 				DEVELOPMENT_TEAM = D7UAPTYYWC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YomiYomi/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -352,6 +438,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6551171E2AA76E3E0083725D /* XCRemoteSwiftPackageReference "ZipArchive" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZipArchive/ZipArchive.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.4;
+			};
+		};
+		6551172E2AA872C60083725D /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fermoya/SwiftUIPager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6551171F2AA76E3E0083725D /* ZipArchive */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6551171E2AA76E3E0083725D /* XCRemoteSwiftPackageReference "ZipArchive" */;
+			productName = ZipArchive;
+		};
+		6551172F2AA872C60083725D /* SwiftUIPager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6551172E2AA872C60083725D /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
+			productName = SwiftUIPager;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		655116EF2AA714E00083725D /* YomiYomi.xcdatamodeld */ = {

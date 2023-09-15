@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "98A857CD-C1B2-4F3A-8465-252F38125B58"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5595DAFC-4CE6-4FEE-9D86-8CF2489400BD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YomiYomi/YomiYomiApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "init()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5595DAFC-4CE6-4FEE-9D86-8CF2489400BD - 2344b4c07636a928"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YomiYomi.YomiYomiApp.init() -&gt; YomiYomi.YomiYomiApp"
+                  moduleName = "YomiYomi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tenzinnorden/code/ios-apps/YomiYomi/YomiYomi/YomiYomiApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "324">
+               </Location>
+               <Location
+                  uuid = "5595DAFC-4CE6-4FEE-9D86-8CF2489400BD - 2344b4c07636a9f6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YomiYomi.YomiYomiApp.init() -&gt; YomiYomi.YomiYomiApp"
+                  moduleName = "YomiYomi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tenzinnorden/code/ios-apps/YomiYomi/YomiYomi/YomiYomiApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "324">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
