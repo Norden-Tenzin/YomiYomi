@@ -42,30 +42,21 @@ struct ComicView: View {
         }
     }
 
-    func openChapter() {
+    func openChapter(currChapter: Chapter) {
         loaded = false
         print("ONAPPREAR RAN")
         DispatchQueue(label: "com.yomiyomi.background", attributes: .concurrent).async {
             let comicName = comic.name!
-            let chapterName = chapter.name!
-            print(chapter.toString())
+            let chapterName = currChapter.name!
+            print(currChapter.toString())
             tempLocation = getDirectoryInDocuments(of: COMIC_DATA_LOCATION_NAME).path + "/temp/\(comicName)/\(chapterName)/"
             createDirectoryInDocuments(dirName: COMIC_DATA_LOCATION_NAME + "/temp/\(comicName)/\(chapterName)/")
             deleteLocation = getDirectoryInDocuments(of: COMIC_DATA_LOCATION_NAME).path + "/temp/\(comicName)/"
 
-//                    NOTE: gets the pages and sets the slider values
-            if FileManager.default.fileExists(atPath: getDirectoryInDocuments(of: chapter.chapterLocation!).path) {
-                unzipCBZFile(at: getDirectoryInDocuments(of: chapter.chapterLocation!).path, to: tempLocation)
-                chapter.pages = getComicPages(at: tempLocation)
-
-                //                        func getAllPages(chapter: Chapter) -> [UIImage] {
-                //                            var res: [UIImage] = []
-                //                            for pageLoc in chapter.pages! {
-                //                                res.append(UIImage(contentsOfFile: tempLocation + "/" + pageLoc)!)
-                //                            }
-                //                            return res
-                //                        }
-
+//            MARK: -   gets the pages and sets the slider values
+            if FileManager.default.fileExists(atPath: getDirectoryInDocuments(of: currChapter.chapterLocation!).path) {
+                unzipCBZFile(at: getDirectoryInDocuments(of: currChapter.chapterLocation!).path, to: tempLocation)
+                currChapter.pages = getComicPages(at: tempLocation)
                 func getAllPages(chapter: Chapter) -> [String] {
                     var res: [String] = []
                     for pageLoc in chapter.pages! {
@@ -74,15 +65,13 @@ struct ComicView: View {
                     return res
                 }
 
-                let tempPages = getAllPages(chapter: chapter)
+                let tempPages = getAllPages(chapter: currChapter)
                 DispatchQueue.main.async {
-                    print("CHAPTER NAME: \(chapter.name!)")
-                    print("CHAPTER PAGE NUMBER: \(chapter.currPageNumber)")
-                    sliderIndex = Double(chapter.currPageNumber)
-                    pageObj.page.index = Int(chapter.currPageNumber)
+                    sliderIndex = Double(currChapter.currPageNumber)
+                    pageObj.page.index = Int(currChapter.currPageNumber)
                     pages = tempPages
-                    chapter.totalPageNumber = Int64(pages.count)
-                    pageNumber = Double(chapter.currPageNumber)
+                    currChapter.totalPageNumber = Int64(pages.count)
+                    pageNumber = Double(currChapter.currPageNumber)
                     sliderMax = max(Double(pages.count) - 1, 1)
                     loaded = true
                 }
@@ -90,24 +79,24 @@ struct ComicView: View {
                 close(deleteLocation)
             }
 
-//                    NOTE: sets the prev and next values
+//            MARK: -   SETS NEW NEXT AND PREV CHAPTERS
             let chapterArr = (comic.chapters!.allObjects as! [Chapter]).sorted { c1, c2 in
                 c1.name! < c2.name!
             }
-//            let chapterArr = (comic.chapters!.allObjects as! [Chapter])
             let chapterIndex: Int? = chapterArr.firstIndex(of: chapter)
             if chapterIndex != nil {
                 let prevIndex = chapterIndex! - 1
                 if 0 <= prevIndex && prevIndex < chapterArr.count {
                     prev = chapterArr[prevIndex]
-                    print("PREV CHAPTER PAGE NUMBER: \(chapterArr[prevIndex].currPageNumber)")
+                } else {
+                    prev = nil
                 }
 
                 let nextIndex = chapterIndex! + 1
                 if 0 <= nextIndex && nextIndex < chapterArr.count {
                     next = chapterArr[nextIndex]
-                    print("NEXT CHAPTER PAGE NUMBER: \(chapterArr[nextIndex].currPageNumber)")
-                    print("NEW NEXT CHAPTER PAGE NUMBER: \(next!.currPageNumber)")
+                } else {
+                    next = nil
                 }
             }
         }
@@ -117,7 +106,7 @@ struct ComicView: View {
         if loaded == false {
             ProgressView()
                 .onAppear {
-                openChapter()
+                openChapter(currChapter: chapter)
             }
         } else {
             ZStack {
@@ -150,10 +139,10 @@ struct ComicView: View {
 //                    MARK: SCROLL
                     HStack {
                         Button {
-//                        TODO: go back if exist
+//                            MARK: -   TODO go prev if exist
                             chapter = prev!
                             print(chapter.toString())
-                            openChapter()
+                            openChapter(currChapter: prev!)
                         } label: {
                             ZStack {
                                 Circle()
@@ -183,10 +172,10 @@ struct ComicView: View {
                             .background(Color.gray)
                             .cornerRadius(30)
                         Button {
-//                            TODO: go next if exist
+//                            MARK: -   TODO go next if exist
                             chapter = next!
                             print(chapter.toString())
-                            openChapter()
+                            openChapter(currChapter: next!)
                         } label: {
                             ZStack {
                                 Circle()
@@ -200,7 +189,7 @@ struct ComicView: View {
                         }.disabled(next == nil)
                     }
                         .padding(.horizontal, 10)
-//                    MARK: BOTTTOM BAR
+//                    MARK: -   BOTTTOM BAR
                     HStack {
                         Spacer()
                         Image(systemName: "gearshape.arrow.triangle.2.circlepath")

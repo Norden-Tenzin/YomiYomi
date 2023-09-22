@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ComicDetailListItem: View {
-    var chapter: Chapter
+    @Environment(\.colorScheme) var currentMode
     @Binding var currChapter: Chapter?
+    var chapter: Chapter
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -24,14 +25,13 @@ struct ComicDetailListItem: View {
                 if chapter.currPageNumber > 0 && (chapter.currPageNumber + 1) != chapter.totalPageNumber {
                     Image(systemName: "circlebadge.fill")
                         .font(.system(size: 5))
-                        .foregroundStyle(Color.gray)
                     Text("Page \(chapter.currPageNumber + 1)")
                 }
             }
-                .foregroundStyle(.gray)
+                .foregroundStyle(.secondary)
                 .font(.system(size: 12))
         }
-            .foregroundStyle((chapter.currPageNumber + 1) == chapter.totalPageNumber ? .gray : .white)
+            .foregroundStyle((chapter.currPageNumber + 1) == chapter.totalPageNumber ? .secondary : .primary)
     }
 }
 

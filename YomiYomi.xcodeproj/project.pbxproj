@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650113A42AB8716500574717 /* CustomTabBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650113A32AB8716500574717 /* CustomTabBarContainerView.swift */; };
+		650113A62AB8719B00574717 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650113A52AB8719B00574717 /* CustomTabBarView.swift */; };
+		650113A92AB871CD00574717 /* TabBarItemPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650113A82AB871CD00574717 /* TabBarItemPreferenceKey.swift */; };
+		650113AB2AB8802300574717 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650113AA2AB8802300574717 /* SettingsView.swift */; };
+		650113AD2AB8805E00574717 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650113AC2AB8805E00574717 /* LibraryView.swift */; };
+		650113B02AB9BF4D00574717 /* Catagory+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650113AE2AB9BF4D00574717 /* Catagory+CoreDataClass.swift */; };
 		6508235E2AAAF83800BE4DA9 /* ComicDetailListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508235D2AAAF83800BE4DA9 /* ComicDetailListItem.swift */; };
+		651D753E2AB478D1002E66F9 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651D753D2AB478D1002E66F9 /* PagerView.swift */; };
 		6529B2512AADDF870064AD43 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529B2502AADDF870064AD43 /* PageView.swift */; };
 		655116E52AA714DF0083725D /* YomiYomiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655116E42AA714DF0083725D /* YomiYomiApp.swift */; };
 		655116E72AA714DF0083725D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655116E62AA714DF0083725D /* ContentView.swift */; };
@@ -22,7 +29,7 @@
 		655117222AA86DEB0083725D /* ImageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117212AA86DEB0083725D /* ImageModifier.swift */; };
 		655117242AA86E0F0083725D /* ComicDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117232AA86E0F0083725D /* ComicDetailView.swift */; };
 		655117272AA86ECC0083725D /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117262AA86ECC0083725D /* TabView.swift */; };
-		655117292AA86EF40083725D /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117282AA86EF40083725D /* LibraryView.swift */; };
+		655117292AA86EF40083725D /* CatagoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655117282AA86EF40083725D /* CatagoryView.swift */; };
 		6551172B2AA86F050083725D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6551172A2AA86F050083725D /* Constants.swift */; };
 		6551172D2AA872AD0083725D /* ComicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6551172C2AA872AD0083725D /* ComicView.swift */; };
 		655117302AA872C60083725D /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 6551172F2AA872C60083725D /* SwiftUIPager */; };
@@ -31,7 +38,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		650113A32AB8716500574717 /* CustomTabBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarContainerView.swift; sourceTree = "<group>"; };
+		650113A52AB8719B00574717 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		650113A82AB871CD00574717 /* TabBarItemPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemPreferenceKey.swift; sourceTree = "<group>"; };
+		650113AA2AB8802300574717 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		650113AC2AB8805E00574717 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		650113AE2AB9BF4D00574717 /* Catagory+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Catagory+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6508235D2AAAF83800BE4DA9 /* ComicDetailListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailListItem.swift; sourceTree = "<group>"; };
+		651D753D2AB478D1002E66F9 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		6529B2502AADDF870064AD43 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		655116E12AA714DF0083725D /* YomiYomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YomiYomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		655116E42AA714DF0083725D /* YomiYomiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YomiYomiApp.swift; sourceTree = "<group>"; };
@@ -46,7 +60,7 @@
 		655117212AA86DEB0083725D /* ImageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModifier.swift; sourceTree = "<group>"; };
 		655117232AA86E0F0083725D /* ComicDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailView.swift; sourceTree = "<group>"; };
 		655117262AA86ECC0083725D /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
-		655117282AA86EF40083725D /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		655117282AA86EF40083725D /* CatagoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatagoryView.swift; sourceTree = "<group>"; };
 		6551172A2AA86F050083725D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6551172C2AA872AD0083725D /* ComicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicView.swift; sourceTree = "<group>"; };
 		655117312AA872E20083725D /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -67,10 +81,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		650113A72AB871BA00574717 /* CustomBottomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				650113A32AB8716500574717 /* CustomTabBarContainerView.swift */,
+				650113A52AB8719B00574717 /* CustomTabBarView.swift */,
+				650113A82AB871CD00574717 /* TabBarItemPreferenceKey.swift */,
+			);
+			path = CustomBottomTabBar;
+			sourceTree = "<group>";
+		};
 		655116D82AA714DF0083725D = {
 			isa = PBXGroup;
 			children = (
-				6529B2502AADDF870064AD43 /* PageView.swift */,
 				655116E32AA714DF0083725D /* YomiYomi */,
 				655116E22AA714DF0083725D /* Products */,
 			);
@@ -89,10 +112,15 @@
 			children = (
 				655117352AA8772F0083725D /* Info.plist */,
 				655117072AA750CF0083725D /* Model */,
+				650113A72AB871BA00574717 /* CustomBottomTabBar */,
 				655116E42AA714DF0083725D /* YomiYomiApp.swift */,
 				655116E62AA714DF0083725D /* ContentView.swift */,
 				655117262AA86ECC0083725D /* TabView.swift */,
-				655117282AA86EF40083725D /* LibraryView.swift */,
+				650113AC2AB8805E00574717 /* LibraryView.swift */,
+				650113AA2AB8802300574717 /* SettingsView.swift */,
+				6529B2502AADDF870064AD43 /* PageView.swift */,
+				651D753D2AB478D1002E66F9 /* PagerView.swift */,
+				655117282AA86EF40083725D /* CatagoryView.swift */,
 				655117312AA872E20083725D /* Card.swift */,
 				655117232AA86E0F0083725D /* ComicDetailView.swift */,
 				6508235D2AAAF83800BE4DA9 /* ComicDetailListItem.swift */,
@@ -117,6 +145,7 @@
 		655117072AA750CF0083725D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				650113AE2AB9BF4D00574717 /* Catagory+CoreDataClass.swift */,
 				655117142AA756BC0083725D /* Comic+CoreDataClass.swift */,
 				655117162AA756BC0083725D /* Chapter+CoreDataClass.swift */,
 			);
@@ -214,20 +243,27 @@
 			files = (
 				655117272AA86ECC0083725D /* TabView.swift in Sources */,
 				655117342AA872FC0083725D /* Extensions.swift in Sources */,
+				650113A92AB871CD00574717 /* TabBarItemPreferenceKey.swift in Sources */,
 				655117222AA86DEB0083725D /* ImageModifier.swift in Sources */,
 				6551171A2AA756BC0083725D /* Chapter+CoreDataClass.swift in Sources */,
 				6551171D2AA76DB00083725D /* Helper.swift in Sources */,
 				655116EE2AA714E00083725D /* Persistence.swift in Sources */,
+				650113A62AB8719B00574717 /* CustomTabBarView.swift in Sources */,
 				655117182AA756BC0083725D /* Comic+CoreDataClass.swift in Sources */,
 				655116F12AA714E00083725D /* YomiYomi.xcdatamodeld in Sources */,
 				6551172D2AA872AD0083725D /* ComicView.swift in Sources */,
-				655117292AA86EF40083725D /* LibraryView.swift in Sources */,
+				655117292AA86EF40083725D /* CatagoryView.swift in Sources */,
 				655117322AA872E20083725D /* Card.swift in Sources */,
+				650113B02AB9BF4D00574717 /* Catagory+CoreDataClass.swift in Sources */,
 				655116E72AA714DF0083725D /* ContentView.swift in Sources */,
+				650113AB2AB8802300574717 /* SettingsView.swift in Sources */,
 				655116E52AA714DF0083725D /* YomiYomiApp.swift in Sources */,
+				650113A42AB8716500574717 /* CustomTabBarContainerView.swift in Sources */,
+				650113AD2AB8805E00574717 /* LibraryView.swift in Sources */,
 				6508235E2AAAF83800BE4DA9 /* ComicDetailListItem.swift in Sources */,
 				655117242AA86E0F0083725D /* ComicDetailView.swift in Sources */,
 				6529B2512AADDF870064AD43 /* PageView.swift in Sources */,
+				651D753E2AB478D1002E66F9 /* PagerView.swift in Sources */,
 				6551172B2AA86F050083725D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

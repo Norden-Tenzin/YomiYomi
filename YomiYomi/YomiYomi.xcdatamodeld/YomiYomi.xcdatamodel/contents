@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22221.1" systemVersion="22G74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="22G74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Catagory" representedClassName="Catagory" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="pos" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="comic" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comic" inverseName="catagory" inverseEntity="Comic"/>
+    </entity>
     <entity name="Chapter" representedClassName="Chapter" syncable="YES" codeGenerationType="category">
         <attribute name="chapterLocation" optional="YES" attributeType="String"/>
         <attribute name="currPageNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -17,6 +23,7 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="lastUpdated" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="&quot;&quot;"/>
+        <relationship name="catagory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Catagory" inverseName="comic" inverseEntity="Catagory"/>
         <relationship name="chapters" toMany="YES" deletionRule="Cascade" destinationEntity="Chapter" inverseName="comic" inverseEntity="Chapter"/>
     </entity>
 </model>

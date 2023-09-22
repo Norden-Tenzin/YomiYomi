@@ -40,7 +40,7 @@ struct Tabs: View {
                                                 // Text
                                                 Text(tabs[row].title)
                                                     .font(Font.system(size: 14, weight: .semibold))
-                                                    .foregroundColor(Color.white)
+//                                                    .foregroundColor(Color.white)
                                                 //                                                .padding(EdgeInsets(top: 10, leading: 3, bottom: 10, trailing: 15))
                                             }
                                                 .frame(width: fixed ? (geoWidth / CGFloat(tabs.count)) : .none, height: 40)

@@ -7,10 +7,25 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 struct Card: View {
-    let comic: Comic
     @State var imageLoaded = false
+//    @FetchRequest var fetchedComic: FetchedResults<Comic>
+    @State private var currChapter: Chapter?
+    @State var isPopoverActive: Bool = false
+    var comic: Comic
+
+//    init(comic receivedComic: Comic) {
+//        self.receivedComic = receivedComic
+//        let request: NSFetchRequest<Comic> = Comic.fetchRequest()
+//        request.sortDescriptors = [NSSortDescriptor(keyPath: \Comic.name, ascending: true)]
+////        request.predicate = NSPredicate(format: "ANY catagory.name == %@", receivedComic.id!.uuidString)
+//        _fetchedComic = FetchRequest<Comic>(fetchRequest: request)
+//        print("WRAPPED VALUE")
+//        print(receivedComic.id)
+//        print(fetchedComic)
+//    }
 
     var body: some View {
         NavigationLink(destination: ComicDetailView(comic: comic),
@@ -19,7 +34,7 @@ struct Card: View {
                     if imageLoaded {
                         ComicImage(comic: comic)
                     } else {
-                        Color.white
+                        Color(uiColor: UIColor.random)
                             .aspectRatio(5.1 / 7.2, contentMode: .fill)
                     }
                     Rectangle().fill(
@@ -43,8 +58,8 @@ struct Card: View {
                 }
                     .background(Color.red)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .foregroundColor(Color.white)
-                    .cornerRadius(8)
+//                    .foregroundColor(Color.white)
+                .cornerRadius(8)
             }
         )
             .onAppear() {
@@ -70,7 +85,7 @@ struct Card: View {
     }
 
     struct ComicImage: View {
-        let comic: Comic
+        var comic: Comic
         var body: some View {
             let image: UIImage? = UIImage(contentsOfFile: getDirectoryInDocuments(of: comic.cover!).path)
             if image != nil {
@@ -79,7 +94,7 @@ struct Card: View {
                     .aspectRatio(5.1 / 7.2, contentMode: .fit)
                     .aspectRatio(contentMode: .fill)
             } else {
-                Color.white
+                Color(uiColor: UIColor.random)
                     .aspectRatio(5.1 / 7.2, contentMode: .fill)
             }
         }

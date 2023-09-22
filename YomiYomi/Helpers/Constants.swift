@@ -11,3 +11,4 @@ let COMIC_LOCATION_NAME = "Comics"
 let COMIC_DATA_LOCATION_NAME = "ComicsData"
 
 let DATA_FILE_NAME = "Data"
+

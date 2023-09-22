@@ -10,22 +10,46 @@ import CoreData
 struct PersistenceController {
     static let shared = PersistenceController()
 
-//    static var preview: PersistenceController = {
-//        let result = PersistenceController(inMemory: true)
-//        let viewContext = result.container.viewContext
-//        for _ in 0..<10 {
-//            let newComic = Comic(context: viewContext)
-//        }
-//        do {
-//            try viewContext.save()
-//        } catch {
-//            // Replace this implementation with code to handle the error appropriately.
-//            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//            let nsError = error as NSError
-//            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//        }
-//        return result
-//    }()
+    static var preview: PersistenceController = {
+        let result = PersistenceController(inMemory: true)
+        let viewContext = result.container.viewContext
+        for index in 1..<11 {
+//            let newCatagory = Catagory(name: "Default", context: viewContext)
+            let newCatagory = Catagory(context: viewContext)
+            newCatagory.id = UUID()
+            newCatagory.name = "default"
+            newCatagory.comic = nil
+            newCatagory.pos = Int64(index)
+
+            let newComic = Comic(context: viewContext)
+            newComic.id = UUID()
+            newComic.name = "DEMO"
+            newComic.catagory = nil
+            newComic.chapters = {
+                var chs = []
+                for i in stride(from: 0, to: 10, by: 1) {
+                    let ch = Chapter(context: viewContext)
+                    ch.id = UUID()
+                    ch.name = "SOMECHAPTER"
+                    ch.pages = []
+                    ch.currPageNumber = 0
+                    ch.totalPageNumber = 10
+                    ch.chapterLocation = ""
+                    chs.append(ch)
+                }
+                return NSSet(array: chs)
+            }()
+        }
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        return result
+    }()
 
     let container: NSPersistentContainer
 

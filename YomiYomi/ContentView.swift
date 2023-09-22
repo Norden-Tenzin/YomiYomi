@@ -8,54 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab: Int = 0
-
-    let tabs: [Tab] = [
-            .init(icon: Image(systemName: "music.note"), title: "Music"),
-//            .init(icon: Image(systemName: "film.fill"), title: "Movies"),
-//            .init(icon: Image(systemName: "book.fill"), title: "Books")
-    ]
-
-    init() {
-        print("HERE1")
-//        if let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path {
-//            print("Documents Directory: \(documentsPath)")
-//        }
-//        let appearance = UINavigationBarAppearance()
-//        appearance.configureWithOpaqueBackground()
-//        appearance.backgroundColor = UIColor(Color.black)
-//        UINavigationBar.appearance().standardAppearance = appearance
-//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-//        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-//        UINavigationBar.appearance().isTranslucent = false
-    }
-
+    @Environment(\.colorScheme) var currentMode
+    @State var newSelection: CustomTabBarItem = CustomTabBarItem(img: "books.vertical.fill", text: "library")
+    private var tabs: [CustomTabBarItem] = [CustomTabBarItem(img: "books.vertical.fill", text: "library"), CustomTabBarItem(img: "gear", text: "settings")]
     var body: some View {
-        NavigationView {
-            GeometryReader { geo in
-                VStack(spacing: 0) {
-                    // Tabs
-                    Tabs(tabs: tabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
-                    // Views
-                    TabView(selection: $selectedTab,
-                        content: {
-                            LibraryView(demoText: "Music View")
-                                .tag(0)
-                            //                            LibraryView(demoText: "Movies View")
-                            //                                .tag(1)
-                            //                            LibraryView(demoText: "Books View")
-                            //                                .tag(2)
-                        })
-                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        TabView(selection: $newSelection) {
+            Group {
+                LibraryView()
+                    .tabItem {
+                    VStack {
+                        Image(systemName: "books.vertical.fill")
+                        Text("library")
+                    }
                 }
-                    .foregroundColor(Color.black)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("Library")
+                SettingsView()
+                    .tabItem {
+                    VStack {
+                        Image(systemName: "gear")
+                        Text("settings")
+                    } }
             }
+//                    .toolbar(.visible, for: .tabBar)
+//                    .toolbarBackground(.regularMaterial, for: .tabBar)
+        }
+            .tint(currentMode == .dark ? .white : .black)
+            .onAppear() {
+            UITabBar.appearance().backgroundColor = UIColor(named: "navbar")
         }
     }
 }
 
-//#Preview {
-//    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-//}
+#Preview {
+    ContentView()
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+}
