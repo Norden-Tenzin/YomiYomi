@@ -23,7 +23,6 @@ struct CatagoryView: View {
         let request: NSFetchRequest<Comic> = Comic.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Comic.name, ascending: true)]
         if let catagoryName = catagoryName {
-            print(catagoryName)
             request.predicate = NSPredicate(format: "ANY catagory.name == %@", catagoryName)
         }
         _exisitingComics = FetchRequest<Comic>(fetchRequest: request)

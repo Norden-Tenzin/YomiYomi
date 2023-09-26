@@ -12,7 +12,7 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="&quot;&quot;"/>
         <attribute name="nextChapterLocation" optional="YES" attributeType="String"/>
-        <attribute name="pages" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="pages" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="prevChapterLocation" optional="YES" attributeType="String"/>
         <attribute name="totalPageNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="comic" maxCount="1" deletionRule="Nullify" destinationEntity="Comic" inverseName="chapters" inverseEntity="Comic"/>

@@ -16,6 +16,7 @@ struct PageView: View {
     @State var loaded: Bool = false
     @State var pagePos: Int = 0
     @State var pageImage: UIImage? = nil
+    @State var comicUpdated: Bool = false
     var pageStringImage: String
     var viewContext: NSManagedObjectContext
     var pages: [String]
@@ -30,9 +31,9 @@ struct PageView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
-                    .onDisappear() {
-                    setLoaded(pageNumber: pageNumber)
-                }
+//                    .onDisappear() {
+//                    setLoaded(pageNumber: pageNumber)
+//                }
             } else {
                 ProgressView()
                     .onAppear() {
@@ -40,15 +41,31 @@ struct PageView: View {
                 }
             }
         }
-            .onReceive(Just(pageNumber)) { newValue in
-            if Int(newValue) == pagePos {
-                updateComic(newIndex: Int(newValue))
+            .onChange(of: pageNumber, { oldValue, newValue in
+            if Int(newValue) == pagePos && comicUpdated == false {
+                saveTimer?.invalidate()
+                saveTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { [self] timer in
+                    updateComic(chapter: chapter, newIndex: newValue, viewContext: viewContext)
+                }
+                comicUpdated = true
+            } else {
+                comicUpdated = false
             }
-        }
+        })
+//            .onReceive(Just(pageNumber)) { newValue in
+////            setLoaded(pageNumber: newValue)
+////            print(newValue)
+//            if Int(newValue) == pagePos && comicUpdated == false {
+//                updateComic(newIndex: Int(newValue))
+//                comicUpdated = true
+//            } else {
+//                comicUpdated = false
+//            }
+//        }
     }
 
     func loadComic() {
-        DispatchQueue(label: "com.yomiyomi.background", attributes: .concurrent).async {
+        Task.detached(priority: .background) {
             let pos = pages.firstIndex(of: pageStringImage)!
             let uIImage = UIImage(contentsOfFile: pageStringImage)
             DispatchQueue.main.async {
@@ -63,41 +80,32 @@ struct PageView: View {
         }
     }
 
-    func updateComic(newIndex: Int) {
-        saveTimer?.invalidate()
-        saveTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { [self] timer in
-            DispatchQueue.global(qos: .background).async {
-                let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-                privateContext.perform {
-                    do {
-                        let fetchRequest = NSFetchRequest<Chapter>(entityName: "Chapter")
-                        fetchRequest.predicate = NSPredicate(format: "id == %@", chapter.id! as CVarArg)
-                        if let object = try viewContext.fetch(fetchRequest).first {
-                            object.setValue(newIndex, forKey: "currPageNumber")
-                        }
-                        try viewContext.save()
-                    } catch {
-                        print("Error: \(error)")
-                    }
-                }
-            }
-        }
-    }
-
     func setLoaded(pageNumber: Double) {
         DispatchQueue(label: "com.yomiyomi.background", attributes: .concurrent).async {
             if (Int(pageNumber) - offset) < pagePos && pagePos < (Int(pageNumber) + offset) {
                 let uIImage = UIImage(contentsOfFile: pageStringImage)
                 DispatchQueue.main.async {
-                    loaded = true
                     pageImage = uIImage
+                    loaded = true
                 }
             } else {
                 DispatchQueue.main.async {
-                    loaded = false
                     pageImage = nil
+                    loaded = false
                 }
             }
         }
     }
 }
+
+func updateComic(chapter: Chapter, newIndex: Double, viewContext: NSManagedObjectContext) {
+    Task.detached(priority: .background) {
+        do {
+            chapter.currPageNumber = Int64(newIndex)
+            try viewContext.save()
+        } catch {
+            print("Error: \(error)")
+        }
+    }
+}
+

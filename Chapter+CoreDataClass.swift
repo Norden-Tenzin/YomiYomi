@@ -25,10 +25,14 @@ public class Chapter: NSManagedObject {
         self.comic = comic
         self.pages = []
         self.currPageNumber = 0
-        self.totalPageNumber = 0
+        self.totalPageNumber = Int64(getNumberOfFilesInZip(at: getDirectoryInDocuments(of: chapterLocation)))
     }
 
     func toString() -> String {
-        return "Name: \(self.name!), CurrPage: \(self.currPageNumber)"
+        return "Name: \(self.name ?? "nil")"
+    }
+
+    func getName() -> String {
+        return self.name ?? "nil"
     }
 }

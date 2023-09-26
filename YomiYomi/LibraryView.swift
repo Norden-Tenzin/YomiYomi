@@ -17,6 +17,21 @@ struct LibraryView: View {
     @State var selection: Int = 0
     let minDragTranslationForSwipe: CGFloat = 50
 
+    func deleteAllComics() {
+//        Comic Does Exist
+//        TODO: ADD CODE FOR SEARCHING AND UPDATING CHAPTERS
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Comic")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        deleteRequest.resultType = .resultTypeObjectIDs
+        do {
+            let result = try viewContext.execute(deleteRequest) as? NSBatchDeleteResult
+            let changes: [AnyHashable: Any] = [NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []]
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [viewContext])
+        } catch {
+            // TODO: handle the error
+        }
+    }
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -33,12 +48,23 @@ struct LibraryView: View {
                     .tabViewStyle(.page(indexDisplayMode: .never))
             }
                 .navigationTitle("Library")
-                .navigationBarItems(trailing:
-//                Button(action: { addComic(Comic(name: "NEW DEMO", dateAdded: Date(), context: viewContext), viewContext: viewContext) }, label: {
-                Button(action: { refresh(viewContext: viewContext) }, label: {
-                        Image(systemName: "arrow.clockwise")
-                    })
-            )
+                .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button(action: { deleteAllComics() }, label: {
+                            HStack {
+                                Text("DEBUG")
+                                Image(systemName: "trash.fill")
+                            }
+                        })
+                        .background(Color.green)
+                    Button(action: { refresh(viewContext: viewContext) }, label: {
+                            Image(systemName: "arrow.clockwise")
+                        })
+                    Button(action: { addComic(Comic(name: "DEBUG", dateAdded: Date(), context: viewContext), viewContext: viewContext) }, label: {
+                            Image(systemName: "plus")
+                        })
+                }
+            }
         }
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import ZipArchive
+import ZIPFoundation
 import CoreData
 
 //func updateJSON (to file: String, for location: FileManager.SearchPathDirectory, comics data: Comic) -> Void {
@@ -104,12 +105,12 @@ func createDirectoryInDocuments(dirName: String) {
 
 func unzipCBZFile(at originalLocation: String, to exportLocation: String) {
     let res = SSZipArchive.unzipFile(atPath: originalLocation, toDestination: exportLocation)
-    print("FROM: \(originalLocation) to \(exportLocation): \(res)")
+//    print("FROM: \(originalLocation) to \(exportLocation): \(res)")
 }
 
 func getComicPages(at location: String) -> [String] {
     do {
-        print("COMIC PAGES LOCATION: \(location)")
+//        print("COMIC PAGES LOCATION: \(location)")
         let directoryContents = try FileManager.default.contentsOfDirectory(atPath: location)
         return directoryContents.sorted()
     }
@@ -117,4 +118,12 @@ func getComicPages(at location: String) -> [String] {
         print("error: \(error)")
         return []
     }
+}
+
+//
+func getNumberOfFilesInZip(at url: URL) -> Int {
+    guard let archive = Archive(url: url, accessMode: .read) else {
+        return -1
+    }
+    return Array(archive).count
 }

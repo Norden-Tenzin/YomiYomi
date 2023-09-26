@@ -14,6 +14,8 @@
 		650113AD2AB8805E00574717 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650113AC2AB8805E00574717 /* LibraryView.swift */; };
 		650113B02AB9BF4D00574717 /* Catagory+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650113AE2AB9BF4D00574717 /* Catagory+CoreDataClass.swift */; };
 		6508235E2AAAF83800BE4DA9 /* ComicDetailListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508235D2AAAF83800BE4DA9 /* ComicDetailListItem.swift */; };
+		6511BB842AC1EFD5008D792B /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 6511BB832AC1EFD5008D792B /* ZIPFoundation */; };
+		6511BB862AC2B6EE008D792B /* OLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6511BB852AC2B6EE008D792B /* OLD.swift */; };
 		651D753E2AB478D1002E66F9 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651D753D2AB478D1002E66F9 /* PagerView.swift */; };
 		6529B2512AADDF870064AD43 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529B2502AADDF870064AD43 /* PageView.swift */; };
 		655116E52AA714DF0083725D /* YomiYomiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655116E42AA714DF0083725D /* YomiYomiApp.swift */; };
@@ -45,6 +47,7 @@
 		650113AC2AB8805E00574717 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		650113AE2AB9BF4D00574717 /* Catagory+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Catagory+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6508235D2AAAF83800BE4DA9 /* ComicDetailListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailListItem.swift; sourceTree = "<group>"; };
+		6511BB852AC2B6EE008D792B /* OLD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLD.swift; sourceTree = "<group>"; };
 		651D753D2AB478D1002E66F9 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		6529B2502AADDF870064AD43 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		655116E12AA714DF0083725D /* YomiYomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YomiYomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +78,7 @@
 			files = (
 				655117302AA872C60083725D /* SwiftUIPager in Frameworks */,
 				655117202AA76E3E0083725D /* ZipArchive in Frameworks */,
+				6511BB842AC1EFD5008D792B /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +124,7 @@
 				650113AA2AB8802300574717 /* SettingsView.swift */,
 				6529B2502AADDF870064AD43 /* PageView.swift */,
 				651D753D2AB478D1002E66F9 /* PagerView.swift */,
+				6511BB852AC2B6EE008D792B /* OLD.swift */,
 				655117282AA86EF40083725D /* CatagoryView.swift */,
 				655117312AA872E20083725D /* Card.swift */,
 				655117232AA86E0F0083725D /* ComicDetailView.swift */,
@@ -182,6 +187,7 @@
 			packageProductDependencies = (
 				6551171F2AA76E3E0083725D /* ZipArchive */,
 				6551172F2AA872C60083725D /* SwiftUIPager */,
+				6511BB832AC1EFD5008D792B /* ZIPFoundation */,
 			);
 			productName = YomiYomi;
 			productReference = 655116E12AA714DF0083725D /* YomiYomi.app */;
@@ -214,6 +220,7 @@
 			packageReferences = (
 				6551171E2AA76E3E0083725D /* XCRemoteSwiftPackageReference "ZipArchive" */,
 				6551172E2AA872C60083725D /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
+				6511BB822AC1EFD5008D792B /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
 			productRefGroup = 655116E22AA714DF0083725D /* Products */;
 			projectDirPath = "";
@@ -250,6 +257,7 @@
 				655116EE2AA714E00083725D /* Persistence.swift in Sources */,
 				650113A62AB8719B00574717 /* CustomTabBarView.swift in Sources */,
 				655117182AA756BC0083725D /* Comic+CoreDataClass.swift in Sources */,
+				6511BB862AC2B6EE008D792B /* OLD.swift in Sources */,
 				655116F12AA714E00083725D /* YomiYomi.xcdatamodeld in Sources */,
 				6551172D2AA872AD0083725D /* ComicView.swift in Sources */,
 				655117292AA86EF40083725D /* CatagoryView.swift in Sources */,
@@ -476,6 +484,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6511BB822AC1EFD5008D792B /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation#accessing-individual-entries";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.16;
+			};
+		};
 		6551171E2AA76E3E0083725D /* XCRemoteSwiftPackageReference "ZipArchive" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ZipArchive/ZipArchive.git";
@@ -495,6 +511,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6511BB832AC1EFD5008D792B /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6511BB822AC1EFD5008D792B /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
 		6551171F2AA76E3E0083725D /* ZipArchive */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6551171E2AA76E3E0083725D /* XCRemoteSwiftPackageReference "ZipArchive" */;

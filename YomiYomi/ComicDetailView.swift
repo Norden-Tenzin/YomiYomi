@@ -88,7 +88,7 @@ struct ComicDetailView: View {
                                 fetchRequest.predicate = NSPredicate(format: "comic == %@", comic)
                                 do {
                                     let result = try viewContext.fetch(fetchRequest) as! [Chapter]
-                                    result.map { chap in
+                                    for chap in result {
                                         chap.currPageNumber = 0
                                     }
                                     try viewContext.save()
@@ -119,7 +119,7 @@ struct ComicDetailView: View {
             }
                 .padding(20)
                 .fullScreenCover(item: $currChapter, content: { currChapter in
-                ComicView(chapter: currChapter, comic: comic, close: closeFullScreenCover)
+                ComicView(chapter: currChapter, chapters: chapters, comic: comic, close: closeFullScreenCover)
             })
         }
             .onAppear() {

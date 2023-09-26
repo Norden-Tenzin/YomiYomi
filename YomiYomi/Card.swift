@@ -58,12 +58,12 @@ struct Card: View {
                 }
                     .background(Color.red)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                    .foregroundColor(Color.white)
-                .cornerRadius(8)
+                    .cornerRadius(8)
             }
         )
             .onAppear() {
-            DispatchQueue(label: "com.yomiyomi.background", attributes: .concurrent).async {
+//            DispatchQueue(label: "com.yomiyomi.background", attributes: .concurrent).async {
+            Task.detached {
                 if comic.cover == "" {
                     let currChapter = Array(comic.chapters as! Set<Chapter>).sorted { lhs, rhs in
                         lhs.name! < rhs.name!
