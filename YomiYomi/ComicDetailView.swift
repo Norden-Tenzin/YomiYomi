@@ -26,7 +26,9 @@ struct ComicDetailView: View {
         )
     }
 
-    func closeFullScreenCover(deleteLocation: String) -> Void {
+    func closeFullScreenCover() -> Void {
+        let comicName = comic.name!
+        let deleteLocation = getDirectoryInDocuments(of: COMIC_DATA_LOCATION_NAME).path + "/temp/\(comicName)/"
         currChapter = nil
         do {
             if FileManager.default.fileExists(atPath: deleteLocation) {

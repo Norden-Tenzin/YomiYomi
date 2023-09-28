@@ -29,7 +29,7 @@ public class Chapter: NSManagedObject {
     }
 
     func toString() -> String {
-        return "Name: \(self.name ?? "nil")"
+        return "Name: \(self.name ?? "unknown"), Pages: \(pages?.count ?? 0)"
     }
 
     func getName() -> String {

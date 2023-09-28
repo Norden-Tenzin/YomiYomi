@@ -22,47 +22,23 @@ struct ComicView: View {
     @State var pageNumber: Double = 0
 
     @State var sliderIndex: Double = 0
-    @State var sliderMax: Double = 0
+    @State var sliderMax: Double = 1
 
     @State var isOverlayActive: Bool = false
     @State var loaded: Bool = false
     @State var pagerLoaded: Bool = false
-    @State var tempLocation: String = ""
-    @State var deleteLocation: String = ""
 
     @State var chapter: Chapter
     @State var chapters: FetchedResults<Chapter>
 
     var comic: Comic
-    var close: (String) -> Void
+    var close: () -> Void
 
     private func sliderChanged(to newValue: Double) {
+        print("SliderChangeCalled \(newValue)")
         pageNumber = newValue
         singleChapterLayerPage.page.update(.new(index: Int(newValue)))
-    }
-
-    func getAllPages(chapter: Chapter) -> [String] {
-        var res: [String] = []
-        for pageLoc in chapter.pages! {
-            res.append(tempLocation + "/" + pageLoc)
-        }
-        return res
-    }
-
-    func unzipChapter(currChapter: Chapter) {
-        let comicName = comic.name!
-        let chapterName = currChapter.name!
-        tempLocation = getDirectoryInDocuments(of: COMIC_DATA_LOCATION_NAME).path + "/temp/\(comicName)/\(chapterName)/"
-        createDirectoryInDocuments(dirName: COMIC_DATA_LOCATION_NAME + "/temp/\(comicName)/\(chapterName)/")
-        deleteLocation = getDirectoryInDocuments(of: COMIC_DATA_LOCATION_NAME).path + "/temp/\(comicName)/"
-
-        //            MARK: -   gets the pages and sets the slider values
-        if FileManager.default.fileExists(atPath: getDirectoryInDocuments(of: currChapter.chapterLocation!).path) {
-            unzipCBZFile(at: getDirectoryInDocuments(of: currChapter.chapterLocation!).path, to: tempLocation)
-            currChapter.pages = getComicPages(at: tempLocation)
-        } else {
-            close(deleteLocation)
-        }
+        print(singleChapterLayerPage.page.index)
     }
 
     func openChapter(currChapter: Chapter) {
@@ -71,10 +47,14 @@ struct ComicView: View {
         pagerLoaded = false
         print("ONAPPREAR RAN")
         DispatchQueue(label: "com.yomiyomi.background", attributes: .concurrent).async {
-            unzipChapter(currChapter: currChapter)
-            let tempPages = getAllPages(chapter: currChapter)
+            if !unzipChapter(currChapter: currChapter, comic: comic) {
+                close()
+            }
+            let tempPages = getAllPages(chapter: currChapter, comic: comic)
             DispatchQueue.main.async {
+                print("COMUC VIEW OPEN CHAPTER RAN \(currChapter.currPageNumber)")
                 sliderIndex = Double(currChapter.currPageNumber)
+                sliderMax = Double(max(chapter.totalPageNumber, 1))
                 singleChapterLayerPage.page.update(.new(index: Int(currChapter.currPageNumber)))
                 multipleChapterLayerPage.page.update(.new(index: chapters.firstIndex(of: chapter) ?? 0))
                 currChapter.pages = tempPages
@@ -96,7 +76,7 @@ struct ComicView: View {
             }
         } else {
             ZStack {
-                PagerView(chapter: $chapter, chapters: chapters, sliderIndex: $sliderIndex, pageNumber: $pageNumber, multipleChapterLayerPage: multipleChapterLayerPage, singleChapterLayerPage: singleChapterLayerPage)
+                PagerView(chapter: $chapter, chapters: chapters, comic: comic, sliderIndex: $sliderIndex, sliderMax: $sliderMax, pageNumber: $pageNumber, multipleChapterLayerPage: multipleChapterLayerPage, singleChapterLayerPage: singleChapterLayerPage)
                     .gesture(TapGesture(count: 1).onEnded({ void in
                         isOverlayActive.toggle()
                     }))
@@ -108,7 +88,7 @@ struct ComicView: View {
                             .padding([.top, .leading, .bottom], 15)
                             .padding(.trailing, 5)
                             .onTapGesture {
-                            close(deleteLocation)
+                            close()
                         }
                         VStack(alignment: .leading) {
                             Text(chapter.name!)
@@ -129,9 +109,10 @@ struct ComicView: View {
                                 .frame(maxWidth: 40)
                             Slider(
                                 value: $sliderIndex,
-                                in: 0...Double(max(chapter.totalPageNumber, 1)),
+                                in: 0...sliderMax,
                                 step: 1)
                                 .onChange(of: sliderIndex) { oldValue, newValue in
+                                    print("SLIDER INDEX CHNAGED \(newValue)")
                                 sliderChanged(to: newValue)
                             }
                             Text("\(chapter.totalPageNumber)")

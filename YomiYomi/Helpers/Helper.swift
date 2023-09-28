@@ -11,6 +11,83 @@ import ZipArchive
 import ZIPFoundation
 import CoreData
 
+func getFilePath (of fileName: String, for location: FileManager.SearchPathDirectory) -> URL? {
+    do {
+        let fileURL = try FileManager.default
+            .url(for: location, in: .userDomainMask, appropriateFor: nil, create: true)
+            .appendingPathComponent(fileName)
+        return fileURL
+    } catch {
+        print("error: \(error)")
+        return nil
+    }
+}
+
+func doesFileExist(at fileName: String, for location: FileManager.SearchPathDirectory) -> Bool? {
+    return FileManager.default.fileExists(atPath: getFilePath(of: fileName, for: location)?.path ?? "")
+}
+
+func getDirectoryInDocuments(of directoryName: String) -> URL {
+    let dataPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(directoryName)
+    return dataPath
+}
+
+func createDirectoryInDocuments(dirName: String) {
+    do {
+        try FileManager.default.createDirectory(atPath: getDirectoryInDocuments(of: dirName).path, withIntermediateDirectories: true, attributes: nil)
+    } catch let error as NSError {
+        print("Error creating directory: \(error.localizedDescription)")
+    }
+}
+
+func unzipCBZFile(at originalLocation: String, to exportLocation: String) {
+    let _res = SSZipArchive.unzipFile(atPath: originalLocation, toDestination: exportLocation)
+}
+
+func getComicPages(at location: String) -> [String] {
+    do {
+        let directoryContents = try FileManager.default.contentsOfDirectory(atPath: location)
+        return directoryContents.sorted()
+    }
+    catch {
+        print("error: \(error)")
+        return []
+    }
+}
+
+func getNumberOfFilesInZip(at url: URL) -> Int {
+    guard let archive = Archive(url: url, accessMode: .read) else {
+        return -1
+    }
+    return Array(archive).count
+}
+
+func unzipChapter(currChapter: Chapter, comic: Comic) -> Bool {
+    let comicName = comic.name!
+    let chapterName = currChapter.name!
+    let tempLocation = getDirectoryInDocuments(of: COMIC_DATA_LOCATION_NAME).path + "/temp/\(comicName)/\(chapterName)/"
+    createDirectoryInDocuments(dirName: COMIC_DATA_LOCATION_NAME + "/temp/\(comicName)/\(chapterName)/")
+    if FileManager.default.fileExists(atPath: getDirectoryInDocuments(of: currChapter.chapterLocation!).path) {
+        unzipCBZFile(at: getDirectoryInDocuments(of: currChapter.chapterLocation!).path, to: tempLocation)
+        currChapter.pages = getComicPages(at: tempLocation)
+        return true
+    } else {
+        return false
+    }
+}
+
+func getAllPages(chapter: Chapter, comic: Comic) -> [String] {
+    let comicName = comic.name!
+    let chapterName = chapter.name!
+    let tempLocation = getDirectoryInDocuments(of: COMIC_DATA_LOCATION_NAME).path + "/temp/\(comicName)/\(chapterName)/"
+    var res: [String] = []
+    for pageLoc in chapter.pages! {
+        res.append(tempLocation + "/" + pageLoc)
+    }
+    return res
+}
+
+
 //func updateJSON (to file: String, for location: FileManager.SearchPathDirectory, comics data: Comic) -> Void {
 //    var currDATA = readJSON(from: file, for: location)
 //    let index = currDATA.firstIndex { comic in
@@ -64,36 +141,6 @@ import CoreData
 //        return []
 //    }
 //}
-
-func getFilePath (of fileName: String, for location: FileManager.SearchPathDirectory) -> URL? {
-    do {
-        let fileURL = try FileManager.default
-            .url(for: location, in: .userDomainMask, appropriateFor: nil, create: true)
-            .appendingPathComponent(fileName)
-        return fileURL
-    } catch {
-        print("error: \(error)")
-        return nil
-    }
-}
-
-func doesFileExist(at fileName: String, for location: FileManager.SearchPathDirectory) -> Bool? {
-    return FileManager.default.fileExists(atPath: getFilePath(of: fileName, for: location)?.path ?? "")
-}
-
-func getDirectoryInDocuments(of directoryName: String) -> URL {
-    let dataPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(directoryName)
-    return dataPath
-}
-
-func createDirectoryInDocuments(dirName: String) {
-    do {
-        try FileManager.default.createDirectory(atPath: getDirectoryInDocuments(of: dirName).path, withIntermediateDirectories: true, attributes: nil)
-    } catch let error as NSError {
-        print("Error creating directory: \(error.localizedDescription)")
-    }
-}
-
 //func createJsonInDocuments(jsonName: String) {
 //    if doesFileExist(at: jsonName, for: .documentDirectory) == nil {
 //        writeEmptyJSON(to: jsonName, for: .documentDirectory)
@@ -102,28 +149,3 @@ func createDirectoryInDocuments(dirName: String) {
 //        print("FILE EXISTS")
 //    }
 //}
-
-func unzipCBZFile(at originalLocation: String, to exportLocation: String) {
-    let res = SSZipArchive.unzipFile(atPath: originalLocation, toDestination: exportLocation)
-//    print("FROM: \(originalLocation) to \(exportLocation): \(res)")
-}
-
-func getComicPages(at location: String) -> [String] {
-    do {
-//        print("COMIC PAGES LOCATION: \(location)")
-        let directoryContents = try FileManager.default.contentsOfDirectory(atPath: location)
-        return directoryContents.sorted()
-    }
-    catch {
-        print("error: \(error)")
-        return []
-    }
-}
-
-//
-func getNumberOfFilesInZip(at url: URL) -> Int {
-    guard let archive = Archive(url: url, accessMode: .read) else {
-        return -1
-    }
-    return Array(archive).count
-}

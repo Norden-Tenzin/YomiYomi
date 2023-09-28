@@ -13,46 +13,59 @@ struct PagerView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Binding var chapter: Chapter
     @State var chapters: FetchedResults<Chapter>
+    var comic: Comic
+
     @Binding var sliderIndex: Double
+    @Binding var sliderMax: Double
     @Binding var pageNumber: Double
+
     @State var saveTimer: Timer? = nil
     @State var loadTimer: Timer? = nil
+
     @State var multipleChapterLayerPage: PageClass
     @State var singleChapterLayerPage: PageClass
-    @State var pageOffset: Double = 0
+
+    @State var outerPageOffset: Double = 0
+
+    @State var chapterLoaded: Bool = false
 
     var body: some View {
         Pager(page: self.multipleChapterLayerPage.page,
             data: self.chapters,
             id: \.id) { ch in
             if chapter == ch {
-                SinglePagerView(pageOffset: $pageOffset, chapters: chapters, chapter: $chapter, sliderIndex: $sliderIndex, multipleChapterLayerPage: $multipleChapterLayerPage, singleChapterLayerPage: singleChapterLayerPage, pages: chapter.pages ?? [], pageNumber: $pageNumber, saveTimer: saveTimer, loadTimer: loadTimer)
+                SinglePagerView(outerPageOffset: $outerPageOffset, chapters: chapters, chapter: $chapter, sliderIndex: $sliderIndex, sliderMax: $sliderMax, multipleChapterLayerPage: $multipleChapterLayerPage, singleChapterLayerPage: singleChapterLayerPage, pages: chapter.pages ?? [], pageNumber: $pageNumber, saveTimer: saveTimer, loadTimer: loadTimer)
             } else {
                 ProgressView()
                     .onAppear() {
-//                        set last chapter to unload
-                    print("LOADING")
-                    Task {
-                        print(ch.name!)
-//                        unzipChapter(currChapter: currChapter)
-//                        let tempPages = getAllPages(chapter: currChapter)
-//                        DispatchQueue.main.async {
-//                            sliderIndex = Double(currChapter.currPageNumber)
-//                            singleChapterLayerPage.page.update(.new(index: Int(currChapter.currPageNumber)))
-//                            multipleChapterLayerPage.page.update(.new(index: chapters.firstIndex(of: chapter) ?? 0))
-//                            currChapter.pages = tempPages
-//                            pageNumber = Double(currChapter.currPageNumber)
-//                            print(currChapter.totalPageNumber)
-//                            print(currChapter.name ?? "unknown")
-//                            loaded = true
-//                            pagerLoaded = true
-//                        }
+                    let currChapterIndex = chapters.firstIndex(of: chapter) ?? 0
+                    let chaptersList: [Chapter] = chapters.map { ch in
+                        return ch
+                    }
+                    let res = getItemsAroundIndex(chaptersList, index: currChapterIndex)
+                    let prev = res.0
+                    let next = res.1
+
+                    if prev != nil {
+                        Task(priority: .background) {
+                            _ = unzipChapter(currChapter: prev!, comic: comic)
+                            let tempPages = getAllPages(chapter: prev!, comic: comic)
+                            prev!.pages = tempPages
+                        }
+                    }
+
+                    if next != nil {
+                        Task(priority: .background) {
+                            _ = unzipChapter(currChapter: next!, comic: comic)
+                            let tempPages = getAllPages(chapter: next!, comic: comic)
+                            next!.pages = tempPages
+                        }
                     }
                 }
             }
         }
             .bounces(false)
-            .pageOffset(pageOffset)
+            .pageOffset(outerPageOffset)
             .swipeInteractionArea(.allAvailable)
             .onAppear() {
             print("PAGER VIEW")
@@ -65,10 +78,12 @@ struct PagerView: View {
 
 struct SinglePagerView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Binding var pageOffset: Double
+    @Binding var outerPageOffset: Double
+    @State var innerPageOffset: Double = 0
     @State var chapters: FetchedResults<Chapter>
     @Binding var chapter: Chapter
     @Binding var sliderIndex: Double
+    @Binding var sliderMax: Double
     @Binding var multipleChapterLayerPage: PageClass
     @State var singleChapterLayerPage: PageClass
     @State var pages: [String]
@@ -88,38 +103,90 @@ struct SinglePagerView: View {
         )
             .contentLoadingPolicy(.lazy(recyclingRatio: 7))
             .bounces(true)
+            .pageOffset(innerPageOffset)
             .allowsDragging(true)
             .onPageWillChange { index in
-            pageNumber = Double(index)
-            sliderIndex = Double(index)
+            print("INDEX: \(index)")
         }
             .onDraggingChanged { increment in
             withAnimation {
-                if singleChapterLayerPage.page.index == self.pages.count - 1, increment > 0 {
-                    //                            index is at end so go to next page
-                    pageOffset = increment
-                } else if singleChapterLayerPage.page.index == 0, increment < 0 {
-                    //                            index is at begining so go to prev page
-                    pageOffset = increment
+                if increment > 0 {
+                    if singleChapterLayerPage.page.index == self.pages.count - 1 {
+                        //                            index is at end so go to next page
+                        outerPageOffset = increment
+                    } else {
+                        innerPageOffset = increment
+                    }
+                } else if increment < 0 {
+                    if singleChapterLayerPage.page.index == 0 {
+                        //                            index is at begining so go to prev page
+                        outerPageOffset = increment
+                    } else {
+                        innerPageOffset = increment
+                    }
                 }
             }
         }
             .onDraggingEnded {
-            guard pageOffset != 0 else { return }
-            let sign = Int(pageOffset / abs(pageOffset))
-            let increment: Int = (abs(pageOffset) > 0.33 ? 1 : 0) * sign
-            withAnimation {
-                pageOffset = 0
-                let newIndex = multipleChapterLayerPage.page.index + increment
-                multipleChapterLayerPage.page.update(.new(index: newIndex))
-//                chapter = chapters[multipleChapterLayerPage.page.index]
+            if innerPageOffset != 0 {
+                print("INNER PAGE OFFSET")
+                let innersign = Int(innerPageOffset / abs(innerPageOffset))
+                let innerincrement: Int = (abs(innerPageOffset) > 0.33 ? 1 : 0) * innersign
+                print("INCREMENT: \(innerincrement)")
+                Task {
+                    withAnimation {
+                        innerPageOffset = 0
+                        let newIndex = singleChapterLayerPage.page.index + innerincrement
+                        print("NEW INDEX: \(newIndex)")
+                        singleChapterLayerPage.page.update(.new(index: newIndex))
+                        pageNumber = Double(newIndex)
+                        sliderIndex = Double(newIndex)
+                    }
+                }
+            }
+            if outerPageOffset != 0 {
+                print("OUTER PAGE OFFSET")
+                let sign = Int(outerPageOffset / abs(outerPageOffset))
+                let increment: Int = (abs(outerPageOffset) > 0.33 ? 1 : 0) * sign
+                withAnimation {
+                    outerPageOffset = 0
+                    let newIndex = multipleChapterLayerPage.page.index + increment
+                    multipleChapterLayerPage.page.update(.new(index: newIndex))
+                    chapter = chapters[multipleChapterLayerPage.page.index]
+                    print(increment)
+                    print(newIndex)
+                    if increment < 0 {
+                        print("GOING PREV")
+//                        go to prev if prev exists
+                        if newIndex > -1 {
+                            singleChapterLayerPage.page.update(.new(index: Int(chapter.totalPageNumber)))
+                            sliderIndex = Double(chapter.totalPageNumber - 1)
+                            sliderMax = Double(max(chapter.totalPageNumber, 1))
+                        }
+                    } else {
+                        print("GOING NEXT")
+//                        go to next if next exists
+                        if newIndex < chapter.totalPageNumber {
+                            singleChapterLayerPage.page.update(.new(index: 0))
+                            sliderIndex = 0
+                            sliderMax = Double(max(chapter.totalPageNumber, 1))
+                        }
+                    }
+                }
             }
         }
             .onAppear() {
             print("SINGLE PAGE VIEW")
         }
-//            .onAppear() {
-//            self.pageNumber = Double(chapter.currPageNumber)
-//        }
     }
+}
+
+func getItemsAroundIndex<T>(_ array: [T], index: Int) -> (previous: T?, next: T?) {
+    guard index >= 0 && index < array.count else {
+        fatalError("Index is out of range")
+    }
+    let previousItem: T? = index > 0 ? array[index - 1] : nil
+    let nextItem: T? = index < array.count - 1 ? array[index + 1] : nil
+
+    return (previousItem, nextItem)
 }
