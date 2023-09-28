@@ -67,12 +67,6 @@ struct PagerView: View {
             .bounces(false)
             .pageOffset(outerPageOffset)
             .swipeInteractionArea(.allAvailable)
-            .onAppear() {
-            print("PAGER VIEW")
-        }
-            .onChange(of: chapter) { oldValue, newValue in
-            print("CHAPTER CHANGE \(newValue.name!)")
-        }
     }
 }
 
@@ -129,15 +123,12 @@ struct SinglePagerView: View {
         }
             .onDraggingEnded {
             if innerPageOffset != 0 {
-                print("INNER PAGE OFFSET")
                 let innersign = Int(innerPageOffset / abs(innerPageOffset))
                 let innerincrement: Int = (abs(innerPageOffset) > 0.33 ? 1 : 0) * innersign
-                print("INCREMENT: \(innerincrement)")
                 Task {
                     withAnimation {
                         innerPageOffset = 0
                         let newIndex = singleChapterLayerPage.page.index + innerincrement
-                        print("NEW INDEX: \(newIndex)")
                         singleChapterLayerPage.page.update(.new(index: newIndex))
                         pageNumber = Double(newIndex)
                         sliderIndex = Double(newIndex)
@@ -145,7 +136,6 @@ struct SinglePagerView: View {
                 }
             }
             if outerPageOffset != 0 {
-                print("OUTER PAGE OFFSET")
                 let sign = Int(outerPageOffset / abs(outerPageOffset))
                 let increment: Int = (abs(outerPageOffset) > 0.33 ? 1 : 0) * sign
                 withAnimation {
@@ -153,31 +143,26 @@ struct SinglePagerView: View {
                     let newIndex = multipleChapterLayerPage.page.index + increment
                     multipleChapterLayerPage.page.update(.new(index: newIndex))
                     chapter = chapters[multipleChapterLayerPage.page.index]
-                    print(increment)
-                    print(newIndex)
-                    print(pageNumber)
                     if increment < 0 {
-                        print("GOING PREV")
 //                        go to prev if prev exists
                         if newIndex > -1 {
                             singleChapterLayerPage.page.update(.new(index: Int(chapter.totalPageNumber)))
                             sliderIndex = Double(chapter.totalPageNumber - 1)
                             sliderMax = Double(max(chapter.totalPageNumber - 1, 1))
                         }
+//                        TODO: UPDATE THE currPage
                     } else if increment > 0 {
-                        print("GOING NEXT")
 //                        go to next if next exists
                         if newIndex < chapter.totalPageNumber {
                             singleChapterLayerPage.page.update(.new(index: 0))
                             sliderIndex = 0
                             sliderMax = Double(max(chapter.totalPageNumber - 1, 1))
                         }
+//                        TODO: UPDATE THE currPage
+
                     }
                 }
             }
-        }
-            .onAppear() {
-            print("SINGLE PAGE VIEW")
         }
     }
 }

@@ -41,7 +41,7 @@ func createDirectoryInDocuments(dirName: String) {
 }
 
 func unzipCBZFile(at originalLocation: String, to exportLocation: String) {
-    let _res = SSZipArchive.unzipFile(atPath: originalLocation, toDestination: exportLocation)
+    let _ = SSZipArchive.unzipFile(atPath: originalLocation, toDestination: exportLocation)
 }
 
 func getComicPages(at location: String) -> [String] {
@@ -86,6 +86,41 @@ func getAllPages(chapter: Chapter, comic: Comic) -> [String] {
     }
     return res
 }
+
+
+/**
+ * it unzips the comic to temp location then moves the cover image to doc where cover is stored
+ *
+ * @param chapterName name of the chapter to retrieve the cover
+ * @param originalLocation location of the chapter to retrieve the cover
+ * @return  String location for the cover
+ **/
+func setCoverToFirstPage(chapterName: String, originalLocation: String) -> String {
+    let tempLocation = getDirectoryInDocuments(of: COMIC_DATA_LOCATION_NAME + "/temp/").path
+    let coverLocation = COMIC_DATA_LOCATION_NAME + "/Covers/\(chapterName)"
+    createDirectoryInDocuments(dirName: COMIC_DATA_LOCATION_NAME + "/Covers/\(chapterName)")
+    createDirectoryInDocuments(dirName: COMIC_DATA_LOCATION_NAME + "/temp/\(chapterName)/")
+    if !FileManager.default.fileExists(atPath: getDirectoryInDocuments(of: coverLocation).path + "/cover.jpg") {
+        unzipCBZFile(at: getDirectoryInDocuments(of: originalLocation).path, to: tempLocation + "\(chapterName)/")
+        let pages = getComicPages(at: tempLocation + "\(chapterName)/")
+        do {
+            if FileManager.default.fileExists(atPath: "\(tempLocation)\(chapterName)/\(pages[0])") {
+                try FileManager.default.moveItem(at: URL(filePath: "\(tempLocation)\(chapterName)/\(pages[0])"), to: URL(filePath: getDirectoryInDocuments(of: coverLocation).path + "/cover.jpg"))
+            }
+        } catch {
+            print ("Error moving file: \(error)")
+        }
+        do {
+            if FileManager.default.fileExists(atPath: "\(tempLocation)\(chapterName)/") {
+                try FileManager.default.removeItem(atPath: "\(tempLocation)\(chapterName)/")
+            }
+        } catch {
+            print ("Error removing file: \(error)")
+        }
+    }
+    return coverLocation + "/cover.jpg"
+}
+
 
 
 //func updateJSON (to file: String, for location: FileManager.SearchPathDirectory, comics data: Comic) -> Void {

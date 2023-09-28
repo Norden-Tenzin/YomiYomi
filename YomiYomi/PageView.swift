@@ -52,16 +52,6 @@ struct PageView: View {
                 comicUpdated = false
             }
         })
-//            .onReceive(Just(pageNumber)) { newValue in
-////            setLoaded(pageNumber: newValue)
-////            print(newValue)
-//            if Int(newValue) == pagePos && comicUpdated == false {
-//                updateComic(newIndex: Int(newValue))
-//                comicUpdated = true
-//            } else {
-//                comicUpdated = false
-//            }
-//        }
     }
 
     func loadComic() {

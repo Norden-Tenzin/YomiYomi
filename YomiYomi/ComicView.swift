@@ -35,32 +35,26 @@ struct ComicView: View {
     var close: () -> Void
 
     private func sliderChanged(to newValue: Double) {
-        print("SliderChangeCalled \(newValue)")
         pageNumber = newValue
         singleChapterLayerPage.page.update(.new(index: Int(newValue)))
         print(singleChapterLayerPage.page.index)
     }
 
     func openChapter(currChapter: Chapter) {
-        print("OPEN CHAPTER")
         loaded = false
         pagerLoaded = false
-        print("ONAPPREAR RAN")
         DispatchQueue(label: "com.yomiyomi.background", attributes: .concurrent).async {
             if !unzipChapter(currChapter: currChapter, comic: comic) {
                 close()
             }
             let tempPages = getAllPages(chapter: currChapter, comic: comic)
             DispatchQueue.main.async {
-                print("COMUC VIEW OPEN CHAPTER RAN \(currChapter.currPageNumber)")
                 sliderIndex = Double(currChapter.currPageNumber)
                 sliderMax = Double(max(chapter.totalPageNumber - 1, 1))
                 singleChapterLayerPage.page.update(.new(index: Int(currChapter.currPageNumber)))
                 multipleChapterLayerPage.page.update(.new(index: chapters.firstIndex(of: chapter) ?? 0))
                 currChapter.pages = tempPages
                 pageNumber = Double(currChapter.currPageNumber)
-                print(currChapter.totalPageNumber)
-                print(currChapter.name ?? "unknown")
                 loaded = true
                 pagerLoaded = true
             }
@@ -71,7 +65,6 @@ struct ComicView: View {
         if loaded == false {
             ProgressView()
                 .onAppear {
-                print("COMIC VIEW")
                 openChapter(currChapter: chapter)
             }
         } else {
@@ -112,7 +105,6 @@ struct ComicView: View {
                                 in: 0...sliderMax,
                                 step: 1)
                                 .onChange(of: sliderIndex) { oldValue, newValue in
-                                    print("SLIDER INDEX CHNAGED \(newValue)")
                                 sliderChanged(to: newValue)
                             }
                             Text("\(chapter.totalPageNumber)")
@@ -151,51 +143,3 @@ struct ComicView: View {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//                    Button {
-////                            MARK: -   TODO go prev if exist
-//                        chapter = prev!
-//                        print(chapter.toString())
-//                        openChapter(currChapter: prev!)
-//                    } label: {
-//                        ZStack {
-//                            Circle()
-//                                .foregroundColor(Color.gray)
-//                                .frame(width: 50)
-//                            Image(systemName: "chevron.left")
-//                                .font(.system(size: 20, weight: .bold))
-//                                .padding([.top, .leading, .bottom], 10)
-//                                .padding(.trailing, 10)
-//                        }
-//                    }.disabled(prev == nil)
-//                    Button {
-////                            MARK: -   TODO go next if exist
-//                        chapter = next!
-//                        print(chapter.toString())
-//                        openChapter(currChapter: next!)
-//                    } label: {
-//                        ZStack {
-//                            Circle()
-//                                .foregroundColor(Color.gray)
-//                                .frame(width: 50)
-//                            Image(systemName: "chevron.right")
-//                                .font(.system(size: 20, weight: .bold))
-//                                .padding([.top, .trailing, .bottom], 10)
-//                                .padding(.leading, 10)
-//                        }
-//                    }.disabled(next == nil)
