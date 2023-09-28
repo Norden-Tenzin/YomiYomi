@@ -54,7 +54,7 @@ struct ComicView: View {
             DispatchQueue.main.async {
                 print("COMUC VIEW OPEN CHAPTER RAN \(currChapter.currPageNumber)")
                 sliderIndex = Double(currChapter.currPageNumber)
-                sliderMax = Double(max(chapter.totalPageNumber, 1))
+                sliderMax = Double(max(chapter.totalPageNumber - 1, 1))
                 singleChapterLayerPage.page.update(.new(index: Int(currChapter.currPageNumber)))
                 multipleChapterLayerPage.page.update(.new(index: chapters.firstIndex(of: chapter) ?? 0))
                 currChapter.pages = tempPages

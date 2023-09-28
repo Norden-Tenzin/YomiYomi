@@ -44,7 +44,7 @@ struct PageView: View {
             .onChange(of: pageNumber, { oldValue, newValue in
             if Int(newValue) == pagePos && comicUpdated == false {
                 saveTimer?.invalidate()
-                saveTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { [self] timer in
+                saveTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { [self] timer in
                     updateComic(chapter: chapter, newIndex: newValue, viewContext: viewContext)
                 }
                 comicUpdated = true

@@ -155,21 +155,22 @@ struct SinglePagerView: View {
                     chapter = chapters[multipleChapterLayerPage.page.index]
                     print(increment)
                     print(newIndex)
+                    print(pageNumber)
                     if increment < 0 {
                         print("GOING PREV")
 //                        go to prev if prev exists
                         if newIndex > -1 {
                             singleChapterLayerPage.page.update(.new(index: Int(chapter.totalPageNumber)))
                             sliderIndex = Double(chapter.totalPageNumber - 1)
-                            sliderMax = Double(max(chapter.totalPageNumber, 1))
+                            sliderMax = Double(max(chapter.totalPageNumber - 1, 1))
                         }
-                    } else {
+                    } else if increment > 0 {
                         print("GOING NEXT")
 //                        go to next if next exists
                         if newIndex < chapter.totalPageNumber {
                             singleChapterLayerPage.page.update(.new(index: 0))
                             sliderIndex = 0
-                            sliderMax = Double(max(chapter.totalPageNumber, 1))
+                            sliderMax = Double(max(chapter.totalPageNumber - 1, 1))
                         }
                     }
                 }
